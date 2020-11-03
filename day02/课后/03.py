@@ -1,0 +1,73 @@
+import requests
+import re
+from bs4 import BeautifulSoup  # 引入BS库
+
+
+# 实现run方法
+# 1.url列表
+# 2.遍历,发送请求,获取响应
+# 3.保存
+
+
+class TiebaSpider:
+    def __init__(self, tieba_name):
+        self.tieba_name = tieba_name
+        self.url_temp = "https://tieba.baidu.com/p/" + tieba_name + "?pn={}"
+        self.headers = {
+            'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36"}
+
+    def get_url_list(self):  # 构造url列表
+        # url_list = []
+        # for i in range(1000):
+        #     url_list.append(self.url_temp.format(i * 50))
+        # return url_list
+        return [self.url_temp.format(i+1) for i in range(2)]
+
+    def parse_url(self, url):
+        print(url)
+        response = requests.get(url, headers=self.headers)
+        return response.content.decode()
+
+    def del_title(self, no_html):
+        # 删除 <!--或者 -->
+        new_html = re.sub(r'<!--|-->', '', no_html, 2)
+        return new_html
+
+    def write(self, content, txt_name):
+        # 打开一个文件,将列表的内容一行一行的存储下来
+        with open(txt_name + '.txt', 'a', encoding='UTF-8') as f:
+            for i in range(len(content)):
+                # 因为转为json后\n不胡自动换行，所以我们这里将\n给手换行
+                string = content[i].split("\\n")
+                for i in string:
+                    # 打印每条评论
+                    print(i)
+                    # 将评论写入文本
+                    f.writelines(i)
+                    # 给评论换行
+                    f.write("\n")
+
+    def save_html(self, html_str,):
+        print(html_str)
+        soup = BeautifulSoup(html_str, 'lxml')
+        all_result = soup.find_all(class_='j_d_post_content')
+        list = []
+        for i in all_result:
+            new_i = re.sub('\s+', '', i.get_text()).strip()
+            if new_i != '':  # print('此选项为空!!!')
+                list.append(new_i)
+                print(new_i)
+        self.write(list, self.tieba_name)
+
+    def run(self):
+        url_list = self.get_url_list()
+        for url in url_list:
+            html_str = self.parse_url(url)
+            # 保存
+            page_num = url_list.index(url) + 1
+            self.save_html(html_str, page_num)
+
+
+if __name__ == '__main__':
+    tieba_spider = TiebaSpider("7057824043")
+    tieba_spider.run()
