@@ -1,7 +1,7 @@
 import requests
 
 # http代理
-ip = "50.17.139.35"
+ip = "51.83.234.14"
 port = 3128
 
 proxies = {

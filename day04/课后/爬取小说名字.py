@@ -13,7 +13,7 @@ class DouBan:
     def get_urls(self):
         '''该方法用来构造所有的url'''
         # 列表生成式
-        return [self.url.format(20 * i) for i in range(5)]
+        return [self.wurl.format(20 * i) for i in range(5)]
 
     def parse_url(self, url):
         '''发送请求并解析数据'''
