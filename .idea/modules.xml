@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/爬虫.iml" filepath="$PROJECT_DIR$/.idea/爬虫.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Reptiles.iml" filepath="$PROJECT_DIR$/.idea/Reptiles.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/python_exam_20201106/.idea/python_exam_20201106.iml" filepath="$USER_HOME$/Desktop/python_exam_20201106/.idea/python_exam_20201106.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/reptiles/.idea/reptiles.iml" filepath="$USER_HOME$/Desktop/reptiles/.idea/reptiles.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/打包/.idea/打包.iml" filepath="$USER_HOME$/Downloads/打包/.idea/打包.iml" />
     </modules>
   </component>
 </project>
